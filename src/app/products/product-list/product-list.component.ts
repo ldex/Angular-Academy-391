@@ -29,6 +29,26 @@ export class ProductListComponent {
                   )
                 );
 
+  pageSize = 5
+  start = 0
+  end = this.pageSize
+  pageNumber = 1
+
+  previousPage() {
+    this.selectedProduct = null;
+    this.pageNumber--
+    this.start -= this.pageSize
+    this.end -= this.pageSize
+  }
+
+  nextPage() {
+    this.selectedProduct = null;
+    this.pageNumber++
+    this.start += this.pageSize
+    this.end += this.pageSize
+  }
+
+
   onSelect(product: Product) {
     this.selectedProduct = product
   }

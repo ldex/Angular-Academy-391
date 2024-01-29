@@ -4,7 +4,7 @@
 
 @if (products$ | async; as products) {
     <ul class="products">
-        @for (product of products; track product.id) {
+        @for (product of products | slice:start:end; track product.id) {
             <li [class.discontinued]="product.discontinued"
                 [class.selected]="product == selectedProduct"
                 (click)="onSelect(product)">
@@ -14,6 +14,16 @@
             </li>
         }
     </ul>
+
+    <div>
+        <button (click)="previousPage()" [disabled]="start == 0">
+            Previous Page
+        </button>
+        Page {{ pageNumber }}
+        <button (click)="nextPage()" [disabled]="products.length <= end">
+            Next Page
+        </button>
+    </div>
 } @else if (errorMessage) {
    <div class="errorMessage">{{ errorMessage }}</div>
 }
