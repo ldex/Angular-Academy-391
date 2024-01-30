@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../../services/product.service';
 import { EMPTY, catchError } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ProductDetailComponent],
+  imports: [CommonModule, ProductDetailComponent, RouterModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -16,6 +17,7 @@ export class ProductListComponent {
   title = 'Products'
   errorMessage: string
   selectedProduct: Product
+  private router = inject(Router)
   private productService = inject(ProductService)
   products$ = this
                 .productService
@@ -50,6 +52,6 @@ export class ProductListComponent {
 
 
   onSelect(product: Product) {
-    this.selectedProduct = product
+    this.router.navigateByUrl('/products/' + product.id)
   }
 }
